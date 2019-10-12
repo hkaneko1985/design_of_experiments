@@ -51,7 +51,7 @@ estimated_y_for_prediction = np.zeros([x_for_prediction.shape[0], number_of_y_va
 std_of_estimated_y_for_prediction = np.zeros([x_for_prediction.shape[0], number_of_y_variables])
 plt.rcParams['font.size'] = 18
 for y_number in range(number_of_y_variables):
-    model = GaussianProcessRegressor(ConstantKernel() * RBF() + WhiteKernel())
+    model = GaussianProcessRegressor(ConstantKernel() * RBF() + WhiteKernel(), alpha=0)
     model.fit(autoscaled_x, autoscaled_y.iloc[:, y_number])
     estimated_y_for_prediction_tmp, std_of_estimated_y_for_prediction_tmp = model.predict(
         autoscaled_x_for_prediction, return_std=True)

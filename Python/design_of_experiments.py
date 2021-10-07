@@ -38,12 +38,12 @@ for variable_number in range(2, len(variables) + 1):
 all_experiments_df = pd.DataFrame(all_experiments)
 all_experiments_df.to_csv('all_experiments.csv', header=False, index=False)
 
+all_indexes = list(range(all_experiments_df.shape[0]))
 # select experiments
 np.random.seed(100) # fix random number seed
 experiment_indexes = np.arange(0, all_experiments.shape[0])
-autoscaled_all_experiments = (all_experiments - all_experiments.mean(axis=0)) / all_experiments.std(axis=0, ddof=1)
 for random_search_number in range(number_of_random_searches):
-    new_selected_experiment_numbers = np.random.randint(0, all_experiments.shape[0], number_of_experiments)
+    new_selected_experiment_numbers = np.random.choice(all_indexes, number_of_experiments, replace=False)
     new_selected_experiments = all_experiments[new_selected_experiment_numbers, :]
     autoscaled_new_selected_experiments = (new_selected_experiments - new_selected_experiments.mean(axis=0)) / new_selected_experiments.std(axis=0, ddof=1)
     if optimal_type == 'D':
